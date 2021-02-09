@@ -7,7 +7,7 @@ package no.ntnu.idata2001.eide.bonusmedlem;
  */
 public class BasicMembership extends Membership
 {
-    private String membershipName;
+    private String membershipName; // Name of the level of membership
 
     /**
      * Class constructor initializes the objects
@@ -19,17 +19,17 @@ public class BasicMembership extends Membership
 
     /**
      * Calculates the new balance of a users membership after a flight
-     * @param bonusPointBalance the balance of the user membership.
+     * @param bonusPointsBalance the balance of the user membership.
      * @param newPoints the number of points earned after the flight.
      * returns the new balance of a users membership
      * @return the new balance of a users membership
      */
     @Override
-    public double registerPoints(int bonusPointBalance, int newPoints)
+    public int registerPoints(int bonusPointsBalance, int newPoints)
     {
-        float newBalance = 0;
+        int newBalance = 0;
 
-        newBalance = bonusPointBalance + newPoints;
+        newBalance = bonusPointsBalance + newPoints;
 
         return newBalance;
     }
@@ -41,7 +41,7 @@ public class BasicMembership extends Membership
     @Override
     public String getMembershipName()
     {
-            return membershipName;
+        return membershipName;
     }
 
 

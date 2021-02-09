@@ -19,26 +19,25 @@ public class Membership
 
     /**
      * Calculates the new balance of a users membership account
-     * @param bpb is bonusPointsBalance, the balance of points already given.
-     * @param np is newPoints, the new amount of points to be added.
+     * @param bonusPointsBalance is bonusPointsBalance, the balance of points already given.
+     * @param newPoints is newPoints, the new amount of points to be added.
      * returns the new Balance of a user
      * @return returns the new balance of a user.
      */
-    public double registerPoints(int bpb, int np)
+    public int registerPoints(int bonusPointsBalance, int newPoints)
     {
-        double newBalance = 0;
+        bonusPointsBalance += newPoints;
 
-        newBalance = bpb + np;
-
-        return newBalance;
+        return bonusPointsBalance;
     }
 
     /**
-     * Returns the name of a users membership (Gold, Silver or Basic)
-     * @return the name of a users membership (Gold, Silver or Basic)
+     * Returns the level of a users membership (Gold, Silver or Basic)
+     * @return the level of a users membership (Gold, Silver or Basic)
      */
     public String getMembershipName()
     {
+
         return membershipName;
     }
 

@@ -5,7 +5,7 @@ import java.time.LocalDate;
 /**
  * This class represents a real life BonusMember profile to be used in a commercial airline company.
  */
-public class BonusMember
+public class BonusMember extends Membership
 {
     private static final int SILVER_LIMIT = 25000;
     private static final int GOLD_LIMIT = 75000;
@@ -16,20 +16,25 @@ public class BonusMember
     private String name;
     private String eMailadress;
     private String password;
+    private String membershipLevel;
 
-    private Membership membership;
+    private Membership membership = new Membership();
 
-        /**
-         * Class constructor initializes the objects of the class.
-         */
-        public BonusMember(int membernumber, LocalDate enrolledDate, int bonusPoints, String name, String eMailadress)
-        {
-            this.memberNumber = membernumber;
-            this.enrolledDate = enrolledDate;
-            this.bonusPointsBalance = bonusPoints;
-            this.name = name;
-            this.eMailadress = eMailadress;
-        }
+    /**
+     * Class constructor initializes the objects of the class.
+     */
+    public BonusMember(int memberNumber, LocalDate enrolledDate, int bonusPoints, String name, String eMailadress)
+    {
+        this.memberNumber = memberNumber;
+        this.enrolledDate = enrolledDate;
+        this.bonusPointsBalance = bonusPoints;
+        this.name = name;
+        this.eMailadress = eMailadress;
+        this.password = null;
+
+        checkAndSetMembership();
+
+    }
 
     /**
      * Checks if the password is correct, if yes it will return true, if not it will return false.
@@ -38,37 +43,74 @@ public class BonusMember
      * @return true if the entered suggested password is correct, false if not.
      */
     public boolean checkPassword(String suggestedPassword)
+    {
+        boolean validPassword = false;
+
+        // Guard condition
+        if(suggestedPassword == null)
         {
-            boolean validPassword = false;
-
-            if(suggestedPassword.equals(password))
-            {
-                validPassword = true;
-            } else {
-                    validPassword = false;
-            }
-
-            return validPassword;
+            validPassword = false;
         }
 
+        if(suggestedPassword.equals(password))
+        {
+            validPassword = true;
+        } else {
+            validPassword = false;
+        }
+
+        return validPassword;
+    }
+
     /**
-     * 
+     * Takes the number of points after a flight to be added to balance.
      * @param newPoints the amount of new points earned by a user
      */
     public void registerBonusPoints(int newPoints)
+    {
+        membership.registerPoints(bonusPointsBalance, newPoints);
+    }
+
+    /**
+     *  Checks a users current balance and assigns a level of membership to the account
+     */
+    private void checkAndSetMembership()
+    {
+        if(bonusPointsBalance <= SILVER_LIMIT){
+
+            membershipLevel = "Basic"; // Basic-membership
+
+        } else if(bonusPointsBalance <= GOLD_LIMIT)
         {
-            int newBalance = 0;
+            membershipLevel = "Silver";; // Silver-membership
+
+        } else {
+
+            membershipLevel = "Gold"; // Gold-membership
 
         }
+    }
+
+    /**
+     * Prints all information linked to a members account
+     */
+    public void printMemberInfo()
+    {
+        System.out.println("@<---------------------------->@");
+        System.out.println("Member number: " + getMemberNumber());
+        System.out.println("Name: " + getName());
+        System.out.println("Mail: " + geteMailadress());
+        System.out.println();
+    }
 
     /**
      * returns a users memberNumber
      * @return a users memberNumber
      */
     public int getMemberNumber()
-        {
-                return memberNumber;
-        }
+    {
+        return memberNumber;
+    }
 
     /**
      * returns a users enrolled date (registered date)
@@ -102,7 +144,7 @@ public class BonusMember
      */
     public String geteMailadress()
     {
-            return eMailadress;
+        return eMailadress;
     }
 
     /**
@@ -111,7 +153,7 @@ public class BonusMember
      */
     public String getPassword()
     {
-            return password;
+        return password;
     }
 
     /**
@@ -122,4 +164,13 @@ public class BonusMember
     {
         return membership;
     }
+
+    public static void main(String[] args) {
+        BonusMember bm = new BonusMember(123, LocalDate.now(), 46000, "Torstein", "taurstein@gmail.com");
+        Membership mshp = new Membership();
+
+        bm.checkAndSetMembership();
+    }
+
+
 }
