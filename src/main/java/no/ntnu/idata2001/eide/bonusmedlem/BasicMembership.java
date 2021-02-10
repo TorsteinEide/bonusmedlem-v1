@@ -4,6 +4,9 @@ package no.ntnu.idata2001.eide.bonusmedlem;
 /**
  * this Class represents a basic membership of a real life commercial airlines company.
  * this is the first layer of membership a user can have, and from here a user can advance to Gold or Silver membership
+ *
+ * @author torstein
+ * @version 0.1
  */
 public class BasicMembership extends Membership
 {
@@ -30,8 +33,9 @@ public class BasicMembership extends Membership
         int newBalance = 0;
 
         newBalance = bonusPointsBalance + newPoints;
+        bonusPointsBalance = newBalance;
 
-        return newBalance;
+        return bonusPointsBalance;
     }
 
     /**

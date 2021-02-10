@@ -6,6 +6,9 @@ public class GoldMembership extends Membership
     /**
      * this Class represents a Gold membership of a real life commercial airlines company.
      * this is the third and final layer of membership a user can have, and from here a user can not advance any further
+     *
+     * @author torstein
+     * @version 0.1
      */
 
     private String membershipName; // Name of the level of membership
@@ -17,7 +20,7 @@ public class GoldMembership extends Membership
      */
     public GoldMembership()
     {
-        membershipName = "Silver";
+        membershipName = "Gold";
         POINTS_SCALING_FACTOR_LEVEL_1 = 1.3f;
         POINTS_SCALING_FACTOR_LEVEL_2 = 1.5f;
     }
@@ -39,13 +42,15 @@ public class GoldMembership extends Membership
         {
             newBalanceFloat = bonusPointsBalance + (newPoints * POINTS_SCALING_FACTOR_LEVEL_2);
             newBalance = Math.round(newBalanceFloat);
+            bonusPointsBalance = newBalance;
 
         } else if(bonusPointsBalance < 90000)
         {
             newBalanceFloat = bonusPointsBalance + (newPoints * POINTS_SCALING_FACTOR_LEVEL_1);
             newBalance = Math.round(newBalanceFloat);
+            bonusPointsBalance = newBalance;
         }
-        return newBalance;
+        return bonusPointsBalance;
     }
 
     /**

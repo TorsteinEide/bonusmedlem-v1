@@ -4,8 +4,11 @@ package no.ntnu.idata2001.eide.bonusmedlem;
 /**
  * this Class represents a membership of a real life commercial airline company.
  * it registers and calculates the balance and name of a users membership
+ *
+ * @author torstein
+ * @version 0.1
  */
-public class Membership
+public abstract class Membership
 {
 
     private String membershipName;
@@ -15,7 +18,9 @@ public class Membership
      */
     public Membership()
     {
+
     }
+
 
     /**
      * Calculates the new balance of a users membership account
@@ -24,12 +29,9 @@ public class Membership
      * returns the new Balance of a user
      * @return returns the new balance of a user.
      */
-    public int registerPoints(int bonusPointsBalance, int newPoints)
-    {
-        bonusPointsBalance += newPoints;
+    public abstract int registerPoints(int bonusPointsBalance, int newPoints);
 
-        return bonusPointsBalance;
-    }
+
 
     /**
      * Returns the level of a users membership (Gold, Silver or Basic)

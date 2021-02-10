@@ -3,6 +3,9 @@ package no.ntnu.idata2001.eide.bonusmedlem;
 /**
  * this Class represents a silver membership of a real life commercial airlines company.
  * this is the second layer of membership a user can have, and from here a user can advance to Gold membership
+ *
+ * @author torstein
+ * @version 0.1
  */
 public class SilverMembership extends Membership
 {
@@ -33,13 +36,14 @@ public class SilverMembership extends Membership
         int newBalance = 0;
         float newBalanceFloat = 0;
 
-        if(bonusPointsBalance <= 25000)
+        if(bonusPointsBalance >= 25000)
         {
             newBalanceFloat = bonusPointsBalance + (newPoints * POINTS_SCALING_FACTOR);
             newBalance = Math.round(newBalanceFloat);
+            bonusPointsBalance = newBalance;
         }
 
-        return newBalance;
+        return bonusPointsBalance;
     }
 
     /**

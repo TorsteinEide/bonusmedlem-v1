@@ -4,8 +4,11 @@ import java.time.LocalDate;
 
 /**
  * This class represents a real life BonusMember profile to be used in a commercial airline company.
+ *
+ * @author torstein
+ * @version 0.1
  */
-public class BonusMember extends Membership
+public class BonusMember
 {
     private static final int SILVER_LIMIT = 25000;
     private static final int GOLD_LIMIT = 75000;
@@ -16,9 +19,8 @@ public class BonusMember extends Membership
     private String name;
     private String eMailadress;
     private String password;
-    private String membershipLevel;
 
-    private Membership membership = new Membership();
+    private Membership membership;
 
     /**
      * Class constructor initializes the objects of the class.
@@ -68,7 +70,8 @@ public class BonusMember extends Membership
      */
     public void registerBonusPoints(int newPoints)
     {
-        membership.registerPoints(bonusPointsBalance, newPoints);
+        this.bonusPointsBalance = membership.registerPoints(bonusPointsBalance, newPoints);
+        checkAndSetMembership();
     }
 
     /**
@@ -76,17 +79,17 @@ public class BonusMember extends Membership
      */
     private void checkAndSetMembership()
     {
-        if(bonusPointsBalance <= SILVER_LIMIT){
+        if(bonusPointsBalance < SILVER_LIMIT){
 
-            membershipLevel = "Basic"; // Basic-membership
+            this.membership = new BasicMembership(); // Basic-membership
 
-        } else if(bonusPointsBalance <= GOLD_LIMIT)
+        } else if(bonusPointsBalance < GOLD_LIMIT)
         {
-            membershipLevel = "Silver";; // Silver-membership
+            this.membership = new SilverMembership(); // Silver-membership
 
-        } else {
+        } else if(bonusPointsBalance >= GOLD_LIMIT){
 
-            membershipLevel = "Gold"; // Gold-membership
+            this.membership = new GoldMembership(); // Gold-membership
 
         }
     }
@@ -100,6 +103,8 @@ public class BonusMember extends Membership
         System.out.println("Member number: " + getMemberNumber());
         System.out.println("Name: " + getName());
         System.out.println("Mail: " + geteMailadress());
+        System.out.println("Points: " + getBonusPointsBalance());
+        System.out.println("Membership type: " + getMembershipName());
         System.out.println();
     }
 
@@ -165,12 +170,15 @@ public class BonusMember extends Membership
         return membership;
     }
 
-    public static void main(String[] args) {
-        BonusMember bm = new BonusMember(123, LocalDate.now(), 46000, "Torstein", "taurstein@gmail.com");
-        Membership mshp = new Membership();
-
-        bm.checkAndSetMembership();
+    /**
+     * returns the name of a membership (Gold, silver or basic)
+     * @return the name of a membership (Gold, silver or basic)
+     */
+    public String getMembershipName()
+    {
+        return this.membership.getMembershipName();
     }
+
 
 
 }
